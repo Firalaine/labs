@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <!-- 1 рівень -->
+    <bean id="student1" class="com.example.university.Student">
+        <constructor-arg value="${student1.name}" />
+        <constructor-arg value="${student1.age}" />
+    </bean>
+
+    <bean id="student2" class="com.example.university.Student">
+        <constructor-arg value="${student2.name}" />
+        <constructor-arg value="${student2.age}" />
+    </bean>
+
+    <!-- 2 рівень -->
+    <bean id="group" class="com.example.university.Group">
+        <constructor-arg value="${group.name}" />
+        <constructor-arg>
+            <list>
+                <ref bean="student1"/>
+                <ref bean="student2"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 3 рівень: University -->
+    <bean id="university" class="com.example.university.University">
+        <constructor-arg value="${university.name}" />
+        <constructor-arg ref="group"/>
+    </bean>
+
+</beans>
