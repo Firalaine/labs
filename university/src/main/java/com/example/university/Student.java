@@ -9,7 +9,6 @@ public class Student {
         this.age = age;
     }
 
-    // Сеттер
     public void setName(String name) {
         this.name = name;
     }
